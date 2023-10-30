@@ -1,5 +1,6 @@
 <template>
-    <div>
+    <h1>フィールド</h1>
+    <div class="field">
         <div v-for="(row, rowIndex) in field" :key="rowIndex" class="row">
             <span v-for="(item, colIndex) in row" :key="colIndex" class="object">
                 {{ getObjectSymbol(item) }}
@@ -9,6 +10,13 @@
 </template>
 
 <style>
+.field {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+}
+
 .row {
     display: flex;
 }

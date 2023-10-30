@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2>ログイン</h2>
+        <h1>ログイン</h1>
         <form @submit.prevent="login">
             <div>
                 <label for="username">ユーザーネーム:</label>
