@@ -28,8 +28,11 @@ export default {
     },
     methods: {
         async login() {
+            localStorage.setItem('token', '');
+
             try {
-                const response = await fetch('http://localhost:8085/api/auth/login', {
+                // 認証APIに接続
+                let response = await fetch('http://localhost:8085/api/auth/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -39,12 +42,22 @@ export default {
                         password: this.password
                     })
                 });
+                let data = await response.json();
 
-                const data = await response.json();
+                // 認証に失敗したらエラーを返す
+                if (response.status !== 200) {
+                    this.errorMessage = '認証に失敗しました。';
+                    return;
+                }
+
+                // フィールドなどで利用するため、認証トークンなどをローカルストレージに保存
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('username', this.username);
-                this.$emit('login-success');
+
+                // フィールドを開く
+                this.$router.push('/field');
             } catch (error) {
+                // 何らかの問題が起きたときは、認証失敗とみなす
                 this.errorMessage = '認証に失敗しました。';
             }
         }

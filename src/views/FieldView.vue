@@ -35,32 +35,19 @@ export default {
     },
     methods: {
         async loadField() {
-            try {
-                // const response = await fetch('http://localhost:8085/api/fields', {
-                //     method: 'GET',
-                //     headers: {
-                //         Authorization: 'Bearer {TOKEN}',
-                //         'Content-Type': 'application/json',
-                //         Accept: 'application/json',
-                //     },
-                // });
-                // const data = await response.json();
-                // this.field = data.objects;
-                this.field = [
-                    [1, 1, 1, 1, 1],
-                    [1, 0, 0, 0, 1],
-                    [1, 0, 0, 0, 1],
-                    [1, 0, 0, 0, 1],
-                    [1, 2, 3, 0, 1],
-                    [1, 0, 0, 0, 1],
-                    [1, 0, 0, 0, 1],
-                    [1, 0, 0, 0, 1],
-                    [1, 3, 0, 4, 1],
-                    [1, 1, 1, 1, 1],
-                ];
-            } catch (error) {
-                console.error('Error fetching field data:', error);
-            }
+            // 本来であればAPIを読み込む必要があるが、できるだけ広いフィールドで確認したいので、APIを読み込まない
+            this.field = [
+                [1, 1, 1, 1, 1],
+                [1, 0, 0, 0, 1],
+                [1, 0, 0, 0, 1],
+                [1, 0, 0, 0, 1],
+                [1, 2, 3, 0, 1],
+                [1, 0, 0, 0, 1],
+                [1, 0, 0, 0, 1],
+                [1, 0, 0, 0, 1],
+                [1, 3, 0, 4, 1],
+                [1, 1, 1, 1, 1],
+            ];
         },
         getObjectSymbol(item) {
             switch (item) {
