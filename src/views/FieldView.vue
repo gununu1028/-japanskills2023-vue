@@ -113,7 +113,8 @@ export default {
                 y < this.field.length &&
                 x >= 0 &&
                 x < this.field[y].length &&
-                this.field[y][x] !== 1 // 壁などのチェック
+                this.field[y][x] !== 1 &&  // 壁でないことを確認
+                this.field[y][x] !== 3     // 移動可能ブロックでないことを確認
             );
         },
         findPlayer() {
