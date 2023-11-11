@@ -1,4 +1,7 @@
 <template>
+  <nav>
+    <router-link to="/login">ログイン</router-link>
+  </nav>
   <div class="hello">
     <h1>{{ msg }}</h1>
     <p>
