@@ -1,10 +1,29 @@
 <template>
-    <h1>フィールド</h1>
     <div class="field">
         <div v-for="(row, rowIndex) in field" :key="rowIndex" class="row">
-            <span v-for="(item, colIndex) in row" :key="colIndex" class="object">
-                {{ getObjectSymbol(item) }}
-            </span>
+            <div v-for="(item, colIndex) in row" :key="colIndex" class="object">
+                <div v-if="item == 0">
+                    <!-- 障害物なし -->
+                    <img src="https://gorin2024-material.s3.ap-northeast-1.amazonaws.com/parquet.png" alt="">
+                </div>
+                <div v-if="item == 1">
+                    <!-- 壁 -->
+                    <img src="https://gorin2024-material.s3.ap-northeast-1.amazonaws.com/paving.png" alt="壁">
+                </div>
+                <div v-if="item == 2">
+                    <!-- プレイヤー -->
+                    <img src="https://gorin2024-material.s3.ap-northeast-1.amazonaws.com/walking.png" alt="プレイヤー">
+                </div>
+                <div v-if="item == 3">
+                    <!-- ブロック -->
+                    <img src="https://gorin2024-material.s3.ap-northeast-1.amazonaws.com/block.png" alt="ブロック">
+                </div>
+                <div v-if="item == 4">
+                    <!-- フラッグ -->
+                    <img src="https://gorin2024-material.s3.ap-northeast-1.amazonaws.com/flag.png" alt="フラッグ">
+                </div>
+
+            </div>
         </div>
     </div>
 </template>
@@ -15,6 +34,7 @@
     flex-direction: column;
     align-items: center;
     margin: 0 auto;
+    background-color: white;
 }
 
 .row {
@@ -28,8 +48,12 @@
     border: 1px solid black;
     text-align: center;
 }
+
+.object img {
+    width: 100%;
+}
 </style>
-  
+
 <script>
 export default {
     data() {
@@ -43,31 +67,16 @@ export default {
     },
     methods: {
         async loadField() {
-            // 本来であればAPIを読み込む必要があるが、できるだけ広いフィールドで動作を確認したいので、APIを読み込まない
-            this.field = [
-                [1, 1, 1, 1, 1],
-                [1, 0, 0, 0, 1],
-                [1, 0, 0, 0, 1],
-                [1, 0, 0, 0, 1],
-                [1, 2, 3, 0, 1],
-                [1, 0, 0, 0, 1],
-                [1, 0, 0, 0, 1],
-                [1, 0, 0, 0, 1],
-                [1, 3, 0, 4, 1],
-                [1, 1, 1, 1, 1],
-            ];
-        },
-        getObjectSymbol(item) {
-            switch (item) {
-                case 0: return ' ';
-                case 1: return '壁';
-                case 2: return 'プレイヤー';
-                case 3: return 'ブロック';
-                case 4: return '出口';
-                default: return '?';
-            }
+            let token = sessionStorage.getItem('token');
+            // BearerトークンでAPIに接続
+            let response = await fetch('http://localhost:8085/api/fields?level=1', {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            let data = await response.json();
+            this.field = data.objects;
         },
         handleKeyDown(event) {
+            // このコードを短くしたい
             switch (event.key) {
                 case 'ArrowUp':
                     // 上に移動
