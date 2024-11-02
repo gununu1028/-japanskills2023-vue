@@ -4,6 +4,7 @@ import HomeView from '../views/HomeView.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    // ここから編集（既にあるものは削除して良い）
     {
       path: '/',
       name: 'start',
@@ -14,11 +15,7 @@ const router = createRouter({
       name: 'select',
       component: () => import('../views/SelectView.vue')
     },
-    {
-      path: '/field',
-      name: 'field',
-      component: () => import('../views/FieldView.vue')
-    },
+    // ここまで編集
   ]
 })
 
