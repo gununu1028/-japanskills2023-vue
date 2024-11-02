@@ -1,22 +1,40 @@
 <template>
-    <div>
-        <h1>ログイン</h1>
+    <div class="login-form">
         <form @submit.prevent="login">
             <div>
-                <label for="username">ユーザーネーム:</label>
+                <label for="username">Username</label><br>
                 <input v-model="username" type="text" id="username" required>
             </div>
             <div>
-                <label for="password">パスワード:</label>
+                <label for="password">Password</label><br>
                 <input v-model="password" type="password" id="password" required>
             </div>
-            <button type="submit">ログイン</button>
+            <button type="submit">Login</button>
         </form>
 
         <p v-if="errorMessage">{{ errorMessage }}</p>
     </div>
 </template>
-  
+
+<style>
+.login-form {
+    width: 300px;
+    padding: 20px;
+    background-color: white;
+    margin: 0 auto;
+}
+
+.login-form input,
+.login-form button {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.login-form button {
+    background-color: white;
+}
+</style>
+
 <script>
 export default {
     data() {

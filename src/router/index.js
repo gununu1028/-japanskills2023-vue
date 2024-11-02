@@ -6,8 +6,8 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'login',
-      component: () => import('../views/LoginView.vue')
+      name: 'start',
+      component: () => import('../views/StartView.vue')
     },
     {
       path: '/field',
