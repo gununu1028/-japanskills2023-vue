@@ -39,14 +39,14 @@
 export default {
     data() {
         return {
-            username: localStorage.getItem('username') || '',
+            username: sessionStorage.getItem('username') || '',
             password: '',
             errorMessage: ''
         };
     },
     methods: {
         async login() {
-            localStorage.setItem('token', '');
+            sessionStorage.setItem('token', '');
 
             try {
                 // 認証APIに接続
@@ -69,8 +69,8 @@ export default {
                 }
 
                 // 他の画面でも利用するため、認証トークンなどをローカルストレージに保存
-                localStorage.setItem('token', data.token);
-                localStorage.setItem('username', this.username);
+                sessionStorage.setItem('token', data.token);
+                sessionStorage.setItem('username', this.username);
 
                 // 選択画面へ
                 this.$router.push('/select');
