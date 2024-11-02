@@ -76,7 +76,6 @@ export default {
             this.field = data.objects;
         },
         handleKeyDown(event) {
-            // このコードを短くしたい
             switch (event.key) {
                 case 'ArrowUp':
                     // 上に移動
@@ -101,25 +100,36 @@ export default {
             let playerPos = this.findPlayer();
             if (!playerPos) return;
 
+            // 新しい位置を計算
             let newPosX = playerPos.x + dx;
             let newPosY = playerPos.y + dy;
 
-            // 新しい位置がフィールド内で、壁や障害物でないことを確認
             if (this.isMovable(newPosX, newPosY)) {
+                // 新しい位置がフィールド内で、壁や障害物でない場合
                 // プレイヤーを新しい位置に移動
                 this.field[playerPos.y][playerPos.x] = 0;
                 this.field[newPosY][newPosX] = 2;
+            } else if (this.field[newPosY][newPosX] === 3) {
+                // ブロックに衝突した場合
+                let blockNewPosX = newPosX + dx;
+                let blockNewPosY = newPosY + dy;
+                if (this.isMovable(blockNewPosX, blockNewPosY, true)) {
+                    // ブロックを移動させ、プレイヤーも移動
+                    this.field[playerPos.y][playerPos.x] = 0;
+                    this.field[newPosY][newPosX] = 2;
+                    this.field[blockNewPosY][blockNewPosX] = 3;
+                }
             }
         },
         isMovable(x, y) {
-            return (
-                y >= 0 &&
-                y < this.field.length &&
-                x >= 0 &&
-                x < this.field[y].length &&
-                this.field[y][x] !== 1 &&  // 壁でないことを確認
-                this.field[y][x] !== 3     // 移動可能ブロックでないことを確認
-            );
+            // フィールドの範囲内であることを確認
+            let withinBounds = y >= 0 && y < this.field.length && x >= 0 && x < this.field[y].length;
+            // 壁でないことを確認
+            let isNotWall = this.field[y][x] !== 1;
+            // ブロックでないことを確認
+            let isNotBlock = this.field[y][x] !== 3;
+
+            return withinBounds && isNotWall && isNotBlock;
         },
         findPlayer() {
             for (let y = 0; y < this.field.length; y++) {
