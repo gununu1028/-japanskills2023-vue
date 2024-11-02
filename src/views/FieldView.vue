@@ -22,7 +22,6 @@
                     <!-- フラッグ -->
                     <img src="https://gorin2024-material.s3.ap-northeast-1.amazonaws.com/flag.png" alt="フラッグ">
                 </div>
-
             </div>
         </div>
     </div>
@@ -106,10 +105,17 @@ export default {
 
             if (this.isMovable(newPosX, newPosY)) {
                 // 新しい位置がフィールド内で、壁や障害物でない場合
+
+                if (this.field[newPosY][newPosX] == 4) {
+                    // フラッグに到達した場合
+                    this.transitionToClear();
+                    return;
+                }
+
                 // プレイヤーを新しい位置に移動
                 this.field[playerPos.y][playerPos.x] = 0;
                 this.field[newPosY][newPosX] = 2;
-            } else if (this.field[newPosY][newPosX] === 3) {
+            } else if (this.field[newPosY][newPosX] == 3) {
                 // ブロックに衝突した場合
                 let blockNewPosX = newPosX + dx;
                 let blockNewPosY = newPosY + dy;
@@ -134,12 +140,16 @@ export default {
         findPlayer() {
             for (let y = 0; y < this.field.length; y++) {
                 for (let x = 0; x < this.field[y].length; x++) {
-                    if (this.field[y][x] === 2) {
+                    if (this.field[y][x] == 2) {
                         return { x, y };
                     }
                 }
             }
             return null;
+        },
+        transitionToClear() {
+            // クリア画面に遷移する処理
+            this.$router.push('/clear');
         },
     },
 };

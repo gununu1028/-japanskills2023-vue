@@ -19,6 +19,11 @@ const router = createRouter({
       name: 'field',
       component: () => import('../views/FieldView.vue')
     },
+    {
+      path: '/clear',
+      name: 'clear',
+      component: () => import('../views/ClearView.vue')
+    }
   ]
 })
 
