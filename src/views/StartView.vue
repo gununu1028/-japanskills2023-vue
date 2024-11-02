@@ -68,12 +68,12 @@ export default {
                     return;
                 }
 
-                // フィールドなどで利用するため、認証トークンなどをローカルストレージに保存
+                // 他の画面でも利用するため、認証トークンなどをローカルストレージに保存
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('username', this.username);
 
-                // フィールドを開く
-                this.$router.push('/field');
+                // 選択画面へ
+                this.$router.push('/select');
             } catch (error) {
                 // 何らかの問題が起きたときは、認証失敗とみなす
                 this.errorMessage = '認証に失敗しました。';

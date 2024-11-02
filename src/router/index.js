@@ -10,6 +10,11 @@ const router = createRouter({
       component: () => import('../views/StartView.vue')
     },
     {
+      path: '/select',
+      name: 'select',
+      component: () => import('../views/SelectView.vue')
+    },
+    {
       path: '/field',
       name: 'field',
       component: () => import('../views/FieldView.vue')
