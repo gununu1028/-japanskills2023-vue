@@ -64,7 +64,7 @@ export default {
 
                 // 認証に失敗したらエラーを返す
                 if (response.status !== 200) {
-                    this.errorMessage = '認証に失敗しました。';
+                    this.errorMessage = 'The username or password is incorrect.';
                     return;
                 }
 
@@ -76,7 +76,7 @@ export default {
                 this.$router.push('/select');
             } catch (error) {
                 // 何らかの問題が起きたときは、認証失敗とみなす
-                this.errorMessage = '認証に失敗しました。';
+                this.errorMessage = 'The username or password is incorrect.';
             }
         }
     }
