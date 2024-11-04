@@ -13,7 +13,8 @@ const router = createRouter({
       path: '/select',
       name: 'select',
       component: () => import('../views/SelectView.vue')
-    },
+    }, // ここのカンマを忘れないように
+    // ここから追加
     {
       path: '/field',
       name: 'field',
@@ -24,6 +25,7 @@ const router = createRouter({
       name: 'clear',
       component: () => import('../views/ClearView.vue')
     }
+    // ここまで追加
   ]
 })
 
