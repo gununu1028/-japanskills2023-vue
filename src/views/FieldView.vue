@@ -56,20 +56,27 @@
 <script>
 export default {
     data() {
+        let urlParams = new URLSearchParams(window.location.search);
         return {
             field: [],
+            token: sessionStorage.getItem('token'),
+            level: urlParams.get('level') || '1',
         };
     },
     mounted() {
+        // 認証トークンがない場合はスタート画面に遷移
+        if (!this.token) {
+            this.$router.push('/');
+            return;
+        }
         this.loadField();
         window.addEventListener('keydown', this.handleKeyDown);
     },
     methods: {
         async loadField() {
-            let token = sessionStorage.getItem('token');
-            // BearerトークンでAPIに接続
-            let response = await fetch('http://localhost:8085/api/fields?level=1', {
-                headers: { Authorization: `Bearer ${token}` },
+            // フィールド取得
+            let response = await fetch(`http://localhost:8085/api/fields?level=${this.level}`, {
+                headers: { Authorization: `Bearer ${this.token}` },
             });
             let data = await response.json();
             this.field = data.objects;
@@ -148,8 +155,8 @@ export default {
             return null;
         },
         transitionToClear() {
-            // クリア画面に遷移する処理
-            this.$router.push('/clear');
+            // クリア画面に移動
+            this.$router.push(`/clear?level=${this.level}`);
         },
     },
 };

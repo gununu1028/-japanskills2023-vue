@@ -1,7 +1,7 @@
 <template>
     <div class="clear-form">
         <h1>Congratulations!</h1>
-        <a href="/field">Replay</a>
+        <a :href="replayLink">Replay</a>
     </div>
 </template>
 
@@ -24,3 +24,28 @@ a {
     border: 1px solid black;
 }
 </style>
+
+<script>
+export default {
+    data() {
+        let urlParams = new URLSearchParams(window.location.search);
+        return {
+            field: [],
+            token: sessionStorage.getItem('token'),
+            level: urlParams.get('level') || '1',
+        };
+    },
+    mounted() {
+        // 認証トークンがない場合はスタート画面に遷移
+        if (!this.token) {
+            this.$router.push('/');
+            return;
+        }
+    },
+    computed: {
+        replayLink() {
+            return `/field?level=${this.level}`;
+        }
+    }
+};
+</script>

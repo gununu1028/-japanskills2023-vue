@@ -5,8 +5,8 @@
         <div class="select-form-list">
             <a href="#">Profile Settings</a>
             <a href="#">Logout</a>
-            <a href="/field">Easy</a>
-            <a href="/field">Normal</a>
+            <a href="/field?level=1">Easy</a>
+            <a href="/field?level=2">Normal</a>
         </div>
     </div>
 </template>
@@ -36,3 +36,18 @@
     border: 1px solid black;
 }
 </style>
+
+<script>
+export default {
+    data() {
+        return {
+            token: sessionStorage.getItem('token')
+        };
+    },
+    mounted() {
+        if (!this.token) {
+            this.$router.push('/');
+        }
+    }
+};
+</script>
